@@ -20,11 +20,10 @@
  ``` 
  3. Также необходимо переименовать token_example.json в token.json и добавить в него полученный от [@BotFather](https://t.me/BotFather) токен.
  
- ## Демонстрация:
+ ## Демонстрация*:
  
- ![screen1](https://github.com/TigProg/telegram_bot/blob/master/another/1.jpg) 
- ![screen2](https://github.com/TigProg/telegram_bot/blob/master/another/1.jpg) 
- ![screen3](https://github.com/TigProg/telegram_bot/blob/master/another/1.jpg)
+ ![screens](https://raw.githubusercontent.com/TigProg/telegram_bot/master/pic_demo.jpg)
+ мой email в профиле не скрыт, поэтому не был скрыт и на скриншотах
  
  ## Тестирование:
  
