@@ -32,7 +32,7 @@ func return_bot() string {
 func token_authentication(token string) string {
 	token_old := token
 	token = strings.Replace(token, "/email ", "", 1)
-	correct_token := "Корректный ввод:" + "\n" + "<\\email YOUR_TOKEN>"
+	correct_token := "Корректный ввод:" + "\n" + "</email YOUR_TOKEN>"
 
 	// text doesn't contain substring like "/enter_"
 	if token == token_old {
@@ -61,7 +61,7 @@ func token_authentication(token string) string {
 	json_string :=string(body)
 
 	//any questions about regexp? I'm ready to answer them
-	var email_reg = regexp.MustCompile(`"[^"]+@[^"]+"`)
+	var email_reg = regexp.MustCompile(`"[^"@\s]+@[^"@\s]+"`)
 
 	if email_reg.MatchString(json_string) == false {
 		return "В полученном json нет email, попробуй перепроверить. " + correct_token
@@ -75,7 +75,6 @@ func main() {
 	if err != nil {
 		log.Panic(err)
 	}
-
 	// if there are errors, it must be activated
 	bot.Debug = false
 
@@ -94,12 +93,13 @@ func main() {
 			continue
 		}
 		Message 	:= update.Message
-		UserName 	:= Message.From.UserName
+		//UserName 	:= Message.From.UserName 
 		Text 		:= Message.Text
 		ChatID 		:= Message.Chat.ID
 
-		// for simple logs to the console
-		log.Printf("[%s] %s", UserName, Text)
+		// for simple logs to the console - only for debug
+		// log.Printf("[%s] %s", UserName, Text)
+		log.Printf("another one message")
 
 		if Message.IsCommand() {
 			send_answer := tgbotapi.NewMessage(ChatID, "")
