@@ -6,7 +6,7 @@
  2. /info - вывод информации о боте;
  3. /email YOUR_GitHub_TOKEN - отправляет запрос к GitHub API и возвращает email пользователя.
  
- Кроме команд,может повторяет любой текст (начинающийся не со "/") и emoji.
+ Кроме команд, может повторяет любой текст (начинающийся не со "/") и emoji.
  
  ## Установка:
  
@@ -22,9 +22,9 @@
  
  ## Демонстрация:
  
- ![screen1](https://github.com/TigProg/telegram_bot/blob/master/another/1.jpg =615x) 
- ![screen2](https://github.com/TigProg/telegram_bot/blob/master/another/1.jpg =615x) 
- ![screen3](https://github.com/TigProg/telegram_bot/blob/master/another/1.jpg =615x)
+ ![screen1](https://github.com/TigProg/telegram_bot/blob/master/another/1.jpg) 
+ ![screen2](https://github.com/TigProg/telegram_bot/blob/master/another/1.jpg) 
+ ![screen3](https://github.com/TigProg/telegram_bot/blob/master/another/1.jpg)
  
  ## Тестирование:
  
