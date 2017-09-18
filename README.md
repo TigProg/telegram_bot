@@ -23,7 +23,8 @@
  ## Демонстрация*:
  
  ![screens](https://raw.githubusercontent.com/TigProg/telegram_bot/master/pic_demo.jpg)
- мой email в профиле не скрыт, поэтому не был скрыт и на скриншотах
+ 
+ *мой email в профиле не скрыт, поэтому не был скрыт и на скриншотах
  
  ## Тестирование:
  
