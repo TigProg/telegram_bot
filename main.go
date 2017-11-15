@@ -16,7 +16,7 @@ type Config struct {
 }
 
 // get token from json
-func return_bot() string {
+func returnBot() string {
     file, _ := os.Open("token.json")
     decoder := json.NewDecoder(file)
     configuration := Config{}
@@ -29,49 +29,49 @@ func return_bot() string {
 
 // authentication with a user token
 // token in func not token - it's "/enter_TOKEN" (I hope) e
-func token_authentication(token string) string {
-	token_old := token
+func tokenAuthentication(token string) string {
+	tokenOld := token
 	token = strings.Replace(token, "/email ", "", 1)
-	correct_token := "Корректный ввод:" + "\n" + "</email YOUR_TOKEN>"
+	correctToken := "Корректный ввод:" + "\n" + "</email YOUR_TOKEN>"
 
 	// text doesn't contain substring like "/enter_"
-	if token == token_old {
-		return "Прости, но кажется, ты забыл пробел или не ввел токен. " + correct_token
+	if token == tokenOld {
+		return "Прости, но кажется, ты забыл пробел или не ввел токен. " + correctToken
 	}
 	// text looks like "/enter_" (but message can't ended on <space>) - only for keeping calm
 	if token == "" {
-		return "Прости, но ты не ввел токен. " + correct_token
+		return "Прости, но ты не ввел токен. " + correctToken
 	}
 
-	search_url := "https://api.github.com/user/emails?access_token=" + token
+	searchUrl := "https://api.github.com/user/emails?access_token=" + token
 
-	resp, err := http.Get(search_url)
+	resp, err := http.Get(searchUrl)
 	// only for keeping calm too
 	// in my cases github always return response
 	if err != nil {
-		return "Прости, но с токеном возникли проблемы. " + correct_token
+		return "Прости, но с токеном возникли проблемы. " + correctToken
 	}
 	defer resp.Body.Close()
 
 	body, err := ioutil.ReadAll(resp.Body)
 	// damaged response (?)
 	if err != nil {
-		return "Странно, может ты ошибся? " + correct_token
+		return "Странно, может ты ошибся? " + correctToken
 	}
-	json_string :=string(body)
+	jsonString :=string(body)
 
 	//any questions about regexp? I'm ready to answer them
-	var email_reg = regexp.MustCompile(`"[^"@\s]+@[^"@\s]+"`)
+	var emailReg = regexp.MustCompile(`"[^"@\s]+@[^"@\s]+"`)
 
-	if email_reg.MatchString(json_string) == false {
-		return "В полученном json нет email, попробуй перепроверить. " + correct_token
+	if emailReg.MatchString(jsonString) == false {
+		return "В полученном json нет email, попробуй перепроверить. " + correctToken
 	}
-	email := email_reg.FindString(json_string)
+	email := emailReg.FindString(jsonString)
 	return strings.Replace(email, "\"", "", 2)
 }
 
 func main() {
-	bot, err := tgbotapi.NewBotAPI(return_bot())
+	bot, err := tgbotapi.NewBotAPI(returnBot())
 	if err != nil {
 		log.Panic(err)
 	}
@@ -102,26 +102,26 @@ func main() {
 		log.Printf("another one message")
 
 		if Message.IsCommand() {
-			send_answer := tgbotapi.NewMessage(ChatID, "")
+			sendAnswer := tgbotapi.NewMessage(ChatID, "")
 			switch update.Message.Command() {
 			case "start":
-				send_answer.Text = "Привет! " +
+				sendAnswer.Text = "Привет! " +
 					"Я - бот-попугай. Я буду передразнивать тебя, но пока умею только печатать. " +
 					"Еще я знаю команды /start, /info и /email - последняя самая интересная."
 			case "info":
-				send_answer.Text = "Я робот - решение ТЗ JetBrains для вступительного испытания. " +
+				sendAnswer.Text = "Я робот - решение ТЗ JetBrains для вступительного испытания. " +
 					"Умею повторять за тобой, но только слова и emoji. " +
 				    "Можешь попробовать использовать команду /email и добавить к ней свой GitHub token" +
 				    	" - посмотри, что получится!"
 			case "email":
-				send_answer.Text = token_authentication(Text)
+				sendAnswer.Text = tokenAuthentication(Text)
 			default:
-				send_answer.Text = "Попробуй другую команду, я знаю всего 3."
+				sendAnswer.Text = "Попробуй другую команду, я знаю всего 3."
 			}
-			bot.Send(send_answer)
+			bot.Send(sendAnswer)
 			continue
 		}
-		send_message := tgbotapi.NewMessage(ChatID, Text)
-		bot.Send(send_message)
+		sendMessage := tgbotapi.NewMessage(ChatID, Text)
+		bot.Send(sendMessage)
 	}
 }
